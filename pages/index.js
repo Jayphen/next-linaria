@@ -1,3 +1,29 @@
-const IndexPage = () => "nothing here";
+import { withApollo } from "../lib/apollo";
+import { Navigation } from "../components/navigation/header";
+import { css } from "linaria";
+import "normalize.css";
 
-export default IndexPage;
+function IndexPage() {
+  return (
+    <div className={wrap}>
+      <Navigation />
+    </div>
+  );
+}
+
+const wrap = css`
+  max-width: 60em;
+  margin: 0 auto;
+`;
+
+css`
+  :global() {
+    body {
+      font-size: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    }
+  }
+`;
+
+export default withApollo(IndexPage);

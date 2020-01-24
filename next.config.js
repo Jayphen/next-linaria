@@ -1,4 +1,5 @@
 const withCSS = require("@zeit/next-css");
+require("dotenv").config();
 
 module.exports = withCSS({
   webpack(config, options) {
@@ -15,5 +16,9 @@ module.exports = withCSS({
     });
 
     return config;
+  },
+  env: {
+    SHOP_ID: process.env.SHOP_ID,
+    API_TOKEN: process.env.API_TOKEN
   }
 });

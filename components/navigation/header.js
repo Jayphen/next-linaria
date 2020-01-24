@@ -1,0 +1,57 @@
+import gql from "graphql-tag";
+import { useQuery } from "@apollo/react-hooks";
+import { css } from "linaria";
+import theme from "../../theme/fromFlight";
+
+export function Navigation() {
+  const { loading, error, data } = useQuery(ALL_CATEGORIES_QUERY, {
+    variables: { root: null }
+  });
+
+  if (loading) return "loading";
+
+  return (
+    <ul className={navStyles}>
+      {data.categories.map(category => {
+        return (
+          <li key={category.id}>
+            <a>{category.name}</a>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+const ALL_CATEGORIES_QUERY = gql`
+  query categories($root: Int) {
+    categories(root: $root) {
+      id
+      name
+    }
+  }
+`;
+
+const navStyles = css`
+  list-style: none;
+  padding: 0;
+  display: flex;
+  margin: 0 -0.5em;
+  justify-content: space-between;
+  margin-top: 1.5em;
+  a {
+    padding: 1em;
+    font-size: 1em;
+  }
+  ${theme.below.md} {
+    font-size: 14px;
+  }
+  ${theme.below.sm} {
+    flex-direction: column;
+    text-align: center;
+    a {
+      display: block;
+      padding: 0.5em;
+    }
+  }
+`;

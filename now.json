@@ -1,0 +1,8 @@
+{
+  "build": {
+    "env": {
+      "SHOP_ID": "@shop_id",
+      "API_TOKEN": "@api_token"
+    }
+  }
+}

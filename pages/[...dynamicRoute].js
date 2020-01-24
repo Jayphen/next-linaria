@@ -7,7 +7,8 @@ import { ProductPage } from "../components/productPage";
 
 function Route() {
   const router = useRouter();
-  const path = router.query.dynamicRoute;
+  console.log(router);
+  const path = router.asPath;
 
   const { loading, error, data } = useQuery(ROUTE_QUERY, {
     variables: { path },

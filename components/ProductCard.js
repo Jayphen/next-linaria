@@ -2,25 +2,22 @@ import React from "react";
 import { styled } from "linaria/react";
 import { css } from "linaria";
 import theme from "../theme";
+import trendTheme from "../theme/fromFlight";
 import Link from "next/link";
-
-const border = "1px solid #F3F3F3";
 
 const styles = css`
   --color-secondary: white;
   @custom-media --above-sm (min-width: 30em);
 
   list-style: none;
-  background: white;
+  background: #white;
   line-height: 1.8;
-  border: ${border};
 
   .details {
     @media (--above-sm) {
       /* background: purple; */
     }
     padding: 0.5em;
-    border-top: ${border};
     display: flex;
     flex-direction: column;
     height: calc(100% - 1em);
@@ -34,6 +31,12 @@ const styles = css`
         margin: 0;
       }
 
+      h3 {
+        font-weight: normal;
+        font-size:1em;
+        margin: 0;
+      }
+
       h4 {
         /* color: var(--color-secondary); */
         font-weight: normal;
@@ -43,6 +46,21 @@ const styles = css`
   .price {
     font-size: var(--sizesm);
     /* color: var(--color-primary); */
+  }
+  a {
+    color: currentColor;
+    transition: all 0.2s linear;
+    text-decoration: none;
+    img {
+    transition: all 0.2s linear;
+
+    }
+    &:hover {
+      color: ${trendTheme.colors.blue};
+      img {
+        opacity:0.8
+      }
+    }
   }
 `;
 
@@ -58,6 +76,8 @@ const image = css`
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    object-fit: cover;
+    width: 100%;
   }
 `;
 
@@ -93,21 +113,21 @@ function ProductCard({ product, color, mb }) {
 
   return (
     <li className={styles}>
-      <div className={image}>
-        <img src={product.images[0].url} alt="" />
-      </div>
+      <Link href="/product" as={product.primaryRoute.path}>
+        <a>
+          <div className={image}>
+            <img src={product.images[0].url} alt="" />
+          </div>
 
-      <div className="details">
-        <StyledHeader style={style}>
-          <Link href="/product" as={product.primaryRoute.path}>
-            <a>
+          <div className="details">
+            <StyledHeader style={style}>
               <h3>{product.name}</h3>
-              <h4>{product.subName}</h4>
-            </a>
-          </Link>
-        </StyledHeader>
-        <div className="price">{formatPrice(product.price.incVat)}</div>
-      </div>
+              {product.subName && <h4>{product.subName}</h4>}
+            </StyledHeader>
+            <div className="price">{formatPrice(product.price.incVat)}</div>
+          </div>
+        </a>
+      </Link>
     </li>
   );
 }

@@ -12,7 +12,7 @@ function IndexPage() {
 }
 
 export const wrap = css`
-  max-width: 60em;
+  max-width: 80em;
   margin: 0 auto;
 `;
 

@@ -6,10 +6,10 @@ module.exports = withCSS({
       test: /\.js$/,
       use: [
         {
-          loader: "linaria/loader"
-          // options: {
-          //   sourceMap: process.env.NODE_ENV !== 'production',
-          // },
+          loader: "linaria/loader",
+          options: {
+            sourceMap: process.env.NODE_ENV !== "production"
+          }
         }
       ]
     });

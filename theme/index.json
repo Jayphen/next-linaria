@@ -1,0 +1,12 @@
+{
+  "colors": {
+    "primary": "hotpink",
+    "secondary": "blue",
+    "highlight": "aqua"
+  },
+  "size": {
+    "sm": "0.8em",
+    "md": "1.5em",
+    "lg": "2em"
+  }
+}

@@ -1,4 +1,4 @@
-const withCSS = require('@zeit/next-css')
+const withCSS = require("@zeit/next-css");
 
 module.exports = withCSS({
   webpack(config, options) {
@@ -6,14 +6,14 @@ module.exports = withCSS({
       test: /\.js$/,
       use: [
         {
-          loader: 'linaria/loader',
-          options: {
-            sourceMap: process.env.NODE_ENV !== 'production',
-          },
-        },
-      ],
-    })
+          loader: "linaria/loader"
+          // options: {
+          //   sourceMap: process.env.NODE_ENV !== 'production',
+          // },
+        }
+      ]
+    });
 
-    return config
-  },
-})
+    return config;
+  }
+});

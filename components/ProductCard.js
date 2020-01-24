@@ -68,17 +68,21 @@ const Header = styled("header")`
   background: salmon;
 `;
 
+// Works fine
 const StyledHeader = styled(Header)`
   border: 1px solid red;
 `;
 
-function TestStylingReactComponent({ children, ...rest }) {
-  return <div {...rest}>{children}</div>;
-}
+// THIS BREAKS
+// See: https://github.com/callstack/linaria/issues/447
 
-const StyledTest = styled(TestStylingReactComponent)`
-  background: blueviolet;
-`;
+// function TestStylingReactComponent({ children, ...rest }) {
+//   return <div {...rest}>{children}</div>;
+// }
+
+// const StyledTest = styled(TestStylingReactComponent)`
+//   background: blueviolet;
+// `;
 
 function formatPrice(price) {
   return new Intl.NumberFormat("se-se", {
@@ -101,7 +105,6 @@ function ProductCard({ product, color = "black", mb }) {
           <h3>{product.name}</h3>
           <h4>{product.subName}</h4>
         </StyledHeader>
-        <StyledTest>oooeee</StyledTest>
         <div className="price">{formatPrice(product.price.incVat)}</div>
       </div>
     </li>

@@ -5,6 +5,13 @@ import theme from "../theme";
 import trendTheme from "../theme/fromFlight";
 import Link from "next/link";
 
+/**
+ * 🚨 ATTN!
+ * The CSS for this file is clearly a mess. Don't take this as an example of
+ * how one should write CSS using Linaria. I've been using this as a testbed
+ * for playing with postCSS plugins etc.
+ */
+
 const styles = css`
   --color-secondary: white;
   @custom-media --above-sm (min-width: 30em);

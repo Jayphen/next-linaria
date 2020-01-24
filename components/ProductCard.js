@@ -2,6 +2,7 @@ import React from "react";
 import { styled } from "linaria/react";
 import { css } from "linaria";
 import theme from "../theme";
+import Link from "next/link";
 
 const border = "1px solid #F3F3F3";
 
@@ -93,13 +94,17 @@ function ProductCard({ product, color, mb }) {
   return (
     <li className={styles}>
       <div className={image}>
-        <img src={product.images[0].url} />
+        <img src={product.images[0].url} alt="" />
       </div>
 
       <div className="details">
         <StyledHeader style={style}>
-          <h3>{product.name}</h3>
-          <h4>{product.subName}</h4>
+          <Link href="[productPath]-product" as={product.primaryRoute.path}>
+            <a>
+              <h3>{product.name}</h3>
+              <h4>{product.subName}</h4>
+            </a>
+          </Link>
         </StyledHeader>
         <div className="price">{formatPrice(product.price.incVat)}</div>
       </div>

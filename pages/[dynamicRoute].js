@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { Category } from "../components/category";
 import { withApollo } from "../lib/apollo";
 import { ROUTE_QUERY } from "../routeQuery";
+import { ProductPage } from "../components/productPage";
 
 function Route() {
   const router = useRouter();
@@ -19,6 +20,10 @@ function Route() {
 
   if (data.route.object.__typename === "Category") {
     return <Category data={data} />;
+  }
+
+  if (data.route.object.__typename === "Product") {
+    return <ProductPage data={data} />;
   }
 
   return <pre>{JSON.stringify(data.route.object.__typename, null, 4)}</pre>;

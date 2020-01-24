@@ -5,7 +5,7 @@ import theme from "../../theme/fromFlight";
 import Link from "next/link";
 
 export function Navigation() {
-  const { loading, error, data } = useQuery(ALL_CATEGORIES_QUERY, {
+  const { loading, data } = useQuery(ALL_CATEGORIES_QUERY, {
     variables: { root: null }
   });
 
@@ -17,7 +17,7 @@ export function Navigation() {
         return (
           <li key={category.id}>
             <Link
-              href={`[categoryPath]-category`}
+              href={"[categoryPath]-category"}
               as={`${category.primaryRoute.path}`}
             >
               <a>{category.name}</a>

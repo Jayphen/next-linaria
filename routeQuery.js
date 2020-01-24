@@ -12,6 +12,9 @@ const productFragment = gql`
     images {
       url
     }
+    primaryRoute {
+      path
+    }
   }
 `;
 

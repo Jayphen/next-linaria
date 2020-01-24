@@ -11,7 +11,7 @@ function IndexPage() {
   );
 }
 
-const wrap = css`
+export const wrap = css`
   max-width: 60em;
   margin: 0 auto;
 `;

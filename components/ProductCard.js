@@ -7,9 +7,6 @@ const border = "1px solid #F3F3F3";
 
 const styles = css`
   --color-secondary: white;
-  --new-size: --sizesm
-  --sizesm: calc(var(--new-size) * 10);
-
   @custom-media --above-sm (min-width: 30em);
 
   list-style: none;
@@ -17,10 +14,9 @@ const styles = css`
   line-height: 1.8;
   border: ${border};
 
-
   .details {
     @media (--above-sm) {
-      background: purple;
+      /* background: purple; */
     }
     padding: 0.5em;
     border-top: ${border};
@@ -29,7 +25,7 @@ const styles = css`
     height: calc(100% - 1em);
 
     header {
-      color: ${theme.colors.secondary};
+      /* color: ${theme.colors.secondary}; */
       display: block;
       font-size: 0.8em;
 
@@ -38,14 +34,14 @@ const styles = css`
       }
 
       h4 {
-        color: var(--color-secondary);
+        /* color: var(--color-secondary); */
         font-weight: normal;
       }
     }
   }
   .price {
     font-size: var(--sizesm);
-    color: var(--color-primary);
+    /* color: var(--color-primary); */
   }
 `;
 
@@ -65,12 +61,12 @@ const image = css`
 `;
 
 const Header = styled("header")`
-  background: salmon;
+  /* background: salmon; */
 `;
 
 // Works fine
 const StyledHeader = styled(Header)`
-  border: 1px solid red;
+  /* border: 1px solid red; */
 `;
 
 // THIS BREAKS
@@ -91,7 +87,7 @@ function formatPrice(price) {
   }).format(price);
 }
 
-function ProductCard({ product, color = "black", mb }) {
+function ProductCard({ product, color, mb }) {
   const style = inline({ background: color, marginBottom: mb + "em" });
 
   return (

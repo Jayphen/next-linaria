@@ -2,6 +2,7 @@ import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import { css } from "linaria";
 import theme from "../../theme/fromFlight";
+import Link from "next/link";
 
 export function Navigation() {
   const { loading, error, data } = useQuery(ALL_CATEGORIES_QUERY, {
@@ -15,7 +16,12 @@ export function Navigation() {
       {data.categories.map(category => {
         return (
           <li key={category.id}>
-            <a>{category.name}</a>
+            <Link
+              href={`[categoryPath]-category`}
+              as={`${category.primaryRoute.path}`}
+            >
+              <a>{category.name}</a>
+            </Link>
           </li>
         );
       })}
@@ -28,6 +34,9 @@ const ALL_CATEGORIES_QUERY = gql`
     categories(root: $root) {
       id
       name
+      primaryRoute {
+        path
+      }
     }
   }
 `;
@@ -42,6 +51,10 @@ const navStyles = css`
   a {
     padding: 1em;
     font-size: 1em;
+    color: currentColor;
+    :hover {
+      color: ${theme.colors.blue};
+    }
   }
   ${theme.below.md} {
     font-size: 14px;

@@ -8,8 +8,10 @@ module.exports = {
     Atomics: "readonly",
     SharedArrayBuffer: "readonly"
   },
-  plugins: ["react"],
+  plugins: ["react-hooks"],
   rules: {
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
     "linebreak-style": ["error", "unix"],
     quotes: ["error", "double"],
     semi: ["error", "always"],

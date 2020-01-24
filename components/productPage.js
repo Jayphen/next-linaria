@@ -9,6 +9,7 @@ export function ProductPage({ data }) {
       <div className={styles}>
         <>
           <h1>{data.route.object.name}</h1>
+          <div>${data.route.object.price.incVat}</div>
         </>
       </div>
     </div>

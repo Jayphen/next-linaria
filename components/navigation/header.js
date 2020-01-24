@@ -16,10 +16,7 @@ export function Navigation() {
       {data.categories.map(category => {
         return (
           <li key={category.id}>
-            <Link
-              href={"[categoryPath]-category"}
-              as={`${category.primaryRoute.path}`}
-            >
+            <Link href="/category" as={category.primaryRoute.path}>
               <a>{category.name}</a>
             </Link>
           </li>

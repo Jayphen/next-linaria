@@ -99,7 +99,7 @@ function ProductCard({ product, color, mb }) {
 
       <div className="details">
         <StyledHeader style={style}>
-          <Link href="[productPath]-product" as={product.primaryRoute.path}>
+          <Link href="/product" as={product.primaryRoute.path}>
             <a>
               <h3>{product.name}</h3>
               <h4>{product.subName}</h4>

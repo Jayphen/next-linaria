@@ -9,7 +9,7 @@ export function Navigation() {
     variables: { root: null }
   });
 
-  if (loading) return "loading";
+  if (loading) return <div>loading</div>;
 
   return (
     <ul className={navStyles}>

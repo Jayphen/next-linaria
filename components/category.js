@@ -5,9 +5,6 @@ import { wrap } from "../pages";
 import theme from "../theme/fromFlight";
 
 export function Category({ data, style }) {
-  if (!data) {
-    return "No data was found, what the heck?";
-  }
   return (
     <div className={wrap}>
       <Navigation />
@@ -30,11 +27,7 @@ export function Category({ data, style }) {
 }
 
 function Error() {
-  return (
-    <>
-      <div>no data was found, what the heck? this should never happen</div>
-    </>
-  );
+  return <div>no data was found, what the heck? this should never happen</div>;
 }
 
 const styles = css`

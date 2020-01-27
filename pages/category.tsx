@@ -1,36 +1,45 @@
-import { ROUTE_QUERY } from "../routeQuery";
-import { useQuery } from "@apollo/react-hooks";
 import { useRouter } from "next/router";
-import { withApollo } from "../lib/apollo";
+import useSWR from "swr";
 import { Category } from "../components/category";
-import { Navigation } from "../components/navigation/header";
-import { wrap } from ".";
+import { ALL_CATEGORIES_QUERY } from "../components/navigation/header";
+import { fetcher } from "../lib/api";
+import { ROUTE_QUERY } from "../routeQuery";
 
-function CategoryPage() {
-  const router = useRouter();
-  const path = router.asPath;
+function CategoryPage({ data: initialData, categories }) {
+  const { asPath } = useRouter();
 
-  const { loading, data } = useQuery(ROUTE_QUERY, {
-    variables: { path },
-    fetchPolicy: "cache-and-network"
-  });
+  const resp = useSWR(
+    [ROUTE_QUERY, asPath],
+    q => {
+      return fetcher(q, { path: asPath });
+    },
+    {
+      initialData
+    }
+  );
 
-  const stale = data && loading;
+  const { data } = resp;
 
-  if (data) {
-    return <Category data={data} style={{ opacity: stale ? 0.5 : 1 }} />;
+  if (categories) {
+    return <Category data={data} categories={categories} style={{}} />;
   }
 
-  if (loading) {
-    return (
-      <div className={wrap}>
-        <Navigation />
-        <div style={{ marginTop: "2em" }}>Loading category: {path}</div>
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className={wrap}>
+  //       <Navigation />
+  //       <div style={{ marginTop: "2em" }}>Loading category: {path}</div>
+  //     </div>
+  //   );
+  // }
 
-  return `Error loading category: ${path}`;
+  return `Error loading category: ${asPath}`;
 }
 
-export default withApollo(CategoryPage);
+CategoryPage.getInitialProps = async ({ asPath }) => {
+  const data = await fetcher(ROUTE_QUERY, { path: asPath });
+  const categories = await fetcher(ALL_CATEGORIES_QUERY, { levels: 1 });
+  return { data, categories };
+};
+
+export default CategoryPage;

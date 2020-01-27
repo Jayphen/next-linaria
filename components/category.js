@@ -4,10 +4,10 @@ import ProductCard from "../components/ProductCard";
 import { wrap } from "../pages";
 import theme from "../theme/fromFlight";
 
-export function Category({ data, style }) {
+export function Category({ data, style, categories }) {
   return (
     <div className={wrap}>
-      <Navigation />
+      <Navigation data={categories} />
       <div className={styles}>
         {!data ? (
           <Error />

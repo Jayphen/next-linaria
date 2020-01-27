@@ -1,7 +1,9 @@
-import gql from "graphql-tag";
-
-const productFragment = gql`
-  fragment ProductFragment on Product {
+export const ROUTE_QUERY = `
+  query route($path: String!) {
+    route(path: $path) {
+      object {
+        __typename
+        ... on Product {
     id
     articleNumber
     name
@@ -15,15 +17,6 @@ const productFragment = gql`
     primaryRoute {
       path
     }
-  }
-`;
-
-export const ROUTE_QUERY = gql`
-  query route($path: String!) {
-    route(path: $path) {
-      object {
-        ... on Product {
-          ...ProductFragment
         }
         ... on Category {
           id
@@ -31,12 +24,23 @@ export const ROUTE_QUERY = gql`
           products {
             totalResults
             result {
-              ...ProductFragment
+    id
+    articleNumber
+    name
+    subName
+    price {
+      incVat
+    }
+    images {
+      url
+    }
+    primaryRoute {
+      path
+    }
             }
           }
         }
       }
     }
   }
-  ${productFragment}
 `;

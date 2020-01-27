@@ -1,12 +1,15 @@
-import { withApollo } from "../lib/apollo";
-import { Navigation } from "../components/navigation/header";
+import {
+  Navigation,
+  ALL_CATEGORIES_QUERY
+} from "../components/navigation/header";
 import { css } from "linaria";
 import "normalize.css";
+import { fetcher } from "../lib/api";
 
-function IndexPage() {
+function IndexPage({ data }) {
   return (
     <div className={wrap}>
-      <Navigation />
+      <Navigation data={data} />
     </div>
   );
 }
@@ -26,4 +29,10 @@ css`
   }
 `;
 
-export default withApollo(IndexPage);
+// not sure how to use getServerProps yet
+export const unstable_getStaticProps = async () => {
+  const categories = await fetcher(ALL_CATEGORIES_QUERY, { levels: 1 });
+  return { props: { data: categories } };
+};
+
+export default IndexPage;

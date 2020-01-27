@@ -1,13 +1,15 @@
-import gql from "graphql-tag";
-import { useQuery } from "@apollo/react-hooks";
 import { css } from "linaria";
-import theme from "../../theme/fromFlight";
 import Link from "next/link";
+import useSWR from "swr";
+import { fetcher } from "../../lib/api";
+import theme from "../../theme/fromFlight";
 
-export function Navigation() {
-  const { loading, data } = useQuery(ALL_CATEGORIES_QUERY, {
-    variables: { root: null }
+export function Navigation(props) {
+  const resp = useSWR(ALL_CATEGORIES_QUERY, q => fetcher(q, { levels: 1 }), {
+    initialData: props?.data
   });
+
+  const { loading, data } = resp;
 
   if (loading) return <div>loading</div>;
 
@@ -26,9 +28,9 @@ export function Navigation() {
   );
 }
 
-const ALL_CATEGORIES_QUERY = gql`
-  query categories($root: Int) {
-    categories(root: $root) {
+export const ALL_CATEGORIES_QUERY = `
+  query categories($levels: Int) {
+    categories(levels: $levels) {
       id
       name
       primaryRoute {

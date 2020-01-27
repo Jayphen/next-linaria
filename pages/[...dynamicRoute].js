@@ -1,26 +1,29 @@
-import { useQuery } from "@apollo/react-hooks";
 import { useRouter } from "next/router";
 import { Category } from "../components/category";
-import { withApollo } from "../lib/apollo";
 import { ROUTE_QUERY } from "../routeQuery";
 import { ProductPage } from "../components/productPage";
+import { fetcher } from "../lib/api";
+import useSWR from "swr";
+import { ALL_CATEGORIES_QUERY } from "../components/navigation/header";
 
-function Route() {
-  const router = useRouter();
-  console.log(router);
-  const path = router.asPath;
+function Route({ data: initialData, categories }) {
+  const { asPath } = useRouter();
 
-  const { loading, error, data } = useQuery(ROUTE_QUERY, {
-    variables: { path },
-    fetchPolicy: "cache-first"
-  });
+  const resp = useSWR(
+    [ROUTE_QUERY, asPath],
+    q => fetcher(q, { path: asPath }),
+    {
+      initialData
+    }
+  );
+  const { error, loading, data } = resp;
 
   if (loading) return "loading…";
   if (error) return "something went terribly wrong";
   if (!data) return "No data for this route…";
 
   if (data.route.object.__typename === "Category") {
-    return <Category data={data} />;
+    return <Category data={data} categories={categories} />;
   }
 
   if (data.route.object.__typename === "Product") {
@@ -30,4 +33,10 @@ function Route() {
   return <pre>{JSON.stringify(data.route.object.__typename, null, 4)}</pre>;
 }
 
-export default withApollo(Route);
+Route.getInitialProps = async ({ asPath }) => {
+  const data = await fetcher(ROUTE_QUERY, { path: asPath });
+  const categories = await fetcher(ALL_CATEGORIES_QUERY, { levels: 1 });
+  return { data, categories };
+};
+
+export default Route;
